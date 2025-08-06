@@ -1,0 +1,116 @@
+<!-- pages/search/search.wxml -->
+
+<base-header title="食品营养查询" showBack="true"></base-header>
+
+<!-- 搜索框 -->
+<view class="search-box">
+  <input 
+    type="text" 
+    placeholder="搜索食材名称..." 
+    value="{{searchKey}}"
+    bindinput="onSearchInput"
+    class="search-input"
+  />
+</view>
+
+<!-- 右侧垂直字母导航 -->
+<view class="letter-nav">
+  <scroll-view 
+    class="letter-scroll" 
+    scroll-y 
+    scroll-with-animation
+    scroll-top="{{letterNavScrollTop}}"
+  >
+    <view 
+      class="letter-item {{activeLetter === item ? 'active' : ''}}" 
+      wx:for="{{letters}}" 
+      wx:key="item" 
+      bindtap="scrollToLetter" 
+      data-letter="{{item}}"
+    >
+      {{item}}
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 食物列表（绑定滚动事件） -->
+<scroll-view 
+  class="food-list" 
+  scroll-y 
+  scroll-with-animation
+  scroll-into-view="{{activeLetterId}}"
+  bindscroll="onListScroll"
+>
+  <!-- 字母分组 -->
+  <view 
+    wx:for="{{filteredFoodGroups}}" 
+    wx:for-item="group" 
+    wx:for-index="groupIndex" 
+    wx:key="letter"  
+    class="letter-group"
+    id="letter-{{group.letter}}"
+  >
+    <view class="group-title">{{group.letter}}</view>
+    <view class="food-items">
+      <!-- 
+        *** 修改核心 1 ***
+        在 food-item 的 view 上添加一个 class，比如 "lazy-item"，
+        用于 IntersectionObserver 的选择器。
+      -->
+      <view 
+        wx:for="{{group.foods}}" 
+        wx:for-item="food" 
+        wx:for-index="foodIndex" 
+        wx:key="id" 
+        class="food-item lazy-item" 
+        bindlongpress="onLongPressFood" 
+        bindtap="onFoodItemTap" 
+        data-foodid="{{food.id}}" 
+        data-foodname="{{food.name}}"
+        data-groupindex="{{groupIndex}}"   
+        data-foodindex="{{foodIndex}}"   
+      >
+        <view class="food-img-container {{food.isSelected ? 'selected-border' : ''}}"> 
+          <!-- 
+            *** 修改核心 2 ***
+            这里的 image 标签无需改动，它的 src 会根据 food.img 的变化自动更新。
+            初始时 food.img 是占位图，懒加载成功后会被更新为真实的图片链接。
+            保留 lazy-load="true" 作为辅助优化。
+          -->
+          <image 
+            lazy-load="true"
+            src="{{food.img}}" 
+            mode="aspectFill" 
+            class="food-img"
+            binderror="onImgError" 
+            data-foodname="{{food.name}}" 
+            data-groupindex="{{groupIndex}}" 
+            data-food-index="{{foodIndex}}"   
+            data-cloudfileid="{{food.cloudFileId}}" 
+          ></image>
+          <view wx:if="{{food.isSelected}}" class="selected-checkmark">✓</view> 
+        </view>
+        <text class="food-name">{{food.name}}</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 空状态提示 -->
+<view wx:if="{{filteredFoodGroups.length === 0 && searchKey}}" class="empty-tip">
+  未找到 "{{searchKey}}" 相关的食材哦~
+</view>
+
+<!-- 对比模式按钮 -->
+<view class="compare-toggle-button {{compareMode ? 'active' : ''}}" bindtap="toggleCompareMode">
+  {{compareMode ? '取消对比' : '对比'}}
+</view>
+
+<!-- 对比按钮 -->
+<view 
+  wx:if="{{compareMode}}" 
+  class="compare-button {{selectedFoods.length === 2 ? 'active' : 'disabled'}}" 
+  bindtap="onCompareButtonClick"
+>
+  对比 ({{selectedFoods.length}}/2)
+</view>

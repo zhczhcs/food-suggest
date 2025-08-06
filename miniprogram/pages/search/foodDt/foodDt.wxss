@@ -1,0 +1,75 @@
+/* pages/search/foodDt/foodDt.wxss */
+
+/* 引入通用样式 */
+@import "/components/CommonStyles.wxss";
+
+/* 调整页面容器，留出顶部导航栏的高度 */
+.food-detail-container {
+  padding-top: 140rpx; /* base-header 的高度 */
+  min-height: 100vh; /* 确保内容区域至少占满一屏 */
+  box-sizing: border-box;
+  background-color: #F5F5F5; /* 与通用容器背景色一致 */
+}
+
+/* 调整卡片顶部间距，使其紧随图片 */
+.card {
+  margin-top: 20rpx; 
+  padding: 40rpx; /* 调整内边距，使内容更紧凑 */
+}
+
+/* 食物图片容器 */
+.food-image-wrapper {
+  width: 100%;
+  height: 400rpx; /* 固定图片高度 */
+  background-color: #e0e0e0; /* 图片加载前的占位背景色 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 防止图片溢出容器 */
+  margin-bottom: 30rpx; /* 图片下方间距 */
+  border-radius: 20rpx; /* 圆角 */
+}
+
+/* 食物图片样式 */
+.food-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 裁剪图片以填充容器 */
+  border-radius: 20rpx;
+}
+
+/* 营养成分分类标题 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid #eee; /* 分割线 */
+}
+
+/* 加载和空数据提示样式 */
+.loading-tip, .empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 30rpx;
+  font-size: 28rpx;
+}
+
+/* 覆盖 CommonStyles 中的 .title 样式，因为这里 .title 是卡片内的标题 */
+.card .title {
+  font-size: 40rpx; /* 稍微大一点 */
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+/* 调整 CommonStyles 中 .form-item 的标签和数值间距 */
+.card .form-item .label {
+  margin-right: 40rpx; /* 增加标签右边距 */
+}
+.card .form-item .value {
+  margin-left: 20rpx; /* 调整数值左边距 */
+}
