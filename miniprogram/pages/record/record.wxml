@@ -1,0 +1,137 @@
+<!-- pages/record/record.wxml -->
+<base-header title="{{pageTitle}}" showBack="true"></base-header>
+
+<view class="container">
+   <!-- 顶部功能按钮区 -->
+   <view class="top-buttons-container">
+    <!-- 将原来的“选择日期查询”按钮替换为以下picker组件结构 -->
+    <view class="top-btn date-query-btn picker-wrapper">
+      <picker mode="date" value="{{selectedQueryDate}}" bindchange="onDateChange">
+        <view class="picker-text">{{displayFilterDate === '所有记录' ? '选择日期查询' : displayFilterDate}}</view>
+      </picker>
+    </view>
+    <!-- “统计数据”按钮保持不变 -->
+    <button class="top-btn stats-btn" bindtap="onStatsClick">统计数据</button>
+  </view>
+
+  <!-- 显示当前查询日期范围的文本 -->
+  <!-- 增加 bindtap="onClearDateFilter" 使其可点击清除筛选 -->
+  <view class="query-date-info" bindtap="onClearDateFilter">
+    <text>{{displayFilterDate}}</text>
+    <!-- 当有筛选日期时，显示提示文本 -->
+    <text wx:if="{{selectedQueryDate}}" class="clear-filter-text"> (点击显示所有记录)</text>
+  </view>
+  <!-- 加载中/空数据显示 -->
+  <view wx:if="{{isLoading}}" class="loading-tip">
+    <text>正在加载饮食记录...</text>
+  </view> 
+  <view wx:else>
+    <block wx:if="{{isEmpty}}">
+      <view class="empty-tip">
+        <text>您还没有记录任何饮食哦~</text>
+        <text>快去菜谱页面添加吧！</text>
+      </view>
+    </block>
+    <block wx:else>
+      <!-- 饮食记录列表 - 所有记录按日期降序排列 -->
+      <view class="diet-record-list">
+        <view 
+          class="record-card" 
+          wx:for="{{allDietRecords}}" 
+          wx:for-item="record" 
+          wx:key="_id"
+        >
+          <!-- 记录日期和餐次显示 -->
+          <view class="record-info-header">
+            <text class="record-datetime">{{record.displayDateTime}}</text>
+          </view>
+
+          <!-- 菜谱图片：点击图片弹出查看食谱 -->
+          <image 
+            class="record-image" 
+            src="{{record.recipeImagePath}}" 
+            mode="aspectFill"
+            bindtap="onViewRecipeDetail" 
+            data-recipeid="{{record.recipeId}}"
+          ></image>
+          
+          <text class="record-name">{{record.recipeName}}</text>
+          
+          <!-- 操作按钮区 - 只保留删除按钮 -->
+          <view class="record-actions">
+            <button 
+              class="action-btn delete-btn" 
+              bindtap="onDeleteRecord" 
+              data-id="{{record._id}}"
+            >删除</button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 查看食谱弹窗 (Modal) -->
+  <view 
+    class="recipe-detail-modal-overlay" 
+    wx:if="{{showRecipeDetailModal}}" 
+    bindtap="onCloseRecipeDetailModal"
+    catchtouchmove="true" 
+  >
+    <view class="recipe-detail-modal-content" catchtap="stopBubble"> 
+      <text class="modal-title">食谱详情</text>
+      <!-- 滚动区域 -->
+      <scroll-view scroll-y class="modal-scroll-area">
+        <block wx:if="{{currentViewingRecipe}}">
+          <image class="modal-recipe-image" src="{{currentViewingRecipe.imagePath}}" mode="aspectFill"></image>
+          
+          <view class="modal-recipe-content">
+            <text class="modal-recipe-name">{{currentViewingRecipe.name}}</text>
+            <text wx:if="{{currentViewingRecipe.description}}" class="modal-recipe-description">{{currentViewingRecipe.description}}</text>
+            
+            <!-- 烹饪时间、难度信息 -->
+            <view class="modal-info-row">
+              <text wx:if="{{currentViewingRecipe.cookTime}}" class="modal-info-item">烹饪时间: {{currentViewingRecipe.cookTime}}</text>
+              <text wx:if="{{currentViewingRecipe.difficulty}}" class="modal-info-item">难度: {{currentViewingRecipe.difficulty}}</text>
+            </view>
+
+            <!-- 标签列表 -->
+            <view wx:if="{{currentViewingRecipe.tags && currentViewingRecipe.tags.length > 0}}" class="modal-tags-section">
+              <text class="modal-section-subtitle">标签:</text>
+              <view class="modal-tag-list">
+                <view wx:for="{{currentViewingRecipe.tags}}" wx:for-item="tag" wx:key="*this" class="modal-tag-item">{{tag}}</view>
+              </view>
+            </view>
+
+            <!-- 食材列表 (不可点击) -->
+            <view wx:if="{{currentViewingRecipe.ingredients && currentViewingRecipe.ingredients.length > 0}}" class="modal-ingredients-section">
+              <text class="modal-section-subtitle">所需食材:</text>
+              <view class="modal-ingredients-list">
+                <view wx:for="{{currentViewingRecipe.ingredients}}" wx:for-item="ingredient" wx:key="name" class="modal-ingredient-item">
+                  <text class="modal-ingredient-name">{{ingredient.name}}</text>
+                  <text class="modal-quantity">{{ingredient.quantity}}</text>
+                </view>
+              </view>
+            </view>
+            
+            <!-- 做法步骤：确保在滚动区域内 -->
+            <view wx:if="{{currentViewingRecipe.steps && currentViewingRecipe.steps.length > 0}}" class="modal-steps-section">
+              <text class="modal-section-subtitle">做法步骤:</text>
+              <view class="modal-steps-list">
+                <view wx:for="{{currentViewingRecipe.steps}}" wx:for-item="step" wx:for-index="idx" wx:key="idx" class="modal-step-item">
+                  <text class="modal-step-number">{{idx + 1}}.</text>
+                  <text class="step-text">{{step}}</text>
+                </view>
+              </view>
+            </view>
+
+          </view>
+        </block>
+        <block wx:else>
+          <text class="loading-tip">加载食谱详情...</text>
+        </block>
+      </scroll-view>
+      <button class="modal-close-btn" bindtap="onCloseRecipeDetailModal">关闭</button>
+    </view>
+  </view>
+  <!-- 查看食谱弹窗结束 -->
+</view>

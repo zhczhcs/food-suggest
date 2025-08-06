@@ -1,0 +1,30 @@
+@import '/components/CommonStyles.wxss';
+/* 疾病列表 */
+.disease-list {
+  margin-top: 20rpx;
+  
+}
+
+/* 疾病项 */
+.disease-item {
+  display:flex; /* 使用 flexbox 布局 */
+  justify-content:space-between; /* 左右对齐 */
+
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+/* 疾病项中的数值 */
+.disease-item .value {
+  text-align: right; /* 疾病项中的数值右对齐 */
+}
+/* 健康提示 */
+.health-tip {
+  margin-top: 40rpx;
+  padding: 20rpx;
+  background-color: #F0F0F0;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #666666;
+  word-break: break-all; /* 允许单词断行 */
+}

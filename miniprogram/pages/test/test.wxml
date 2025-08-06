@@ -1,0 +1,12 @@
+<!-- pages/test/test.wxml -->
+<view class="test-container">
+  <text class="test-title">餐次选择测试</text>
+  <checkbox-group bindchange="onTestMealTypeChange" class="test-checkbox-group">
+    <label class="test-checkbox-label" wx:for="{{testMealTypeOptions}}" wx:for-item="meal" wx:key="*this">
+      <checkbox value="{{meal}}" checked="{{testSelectedMealTypes.indexOf(meal) !== -1}}" /> {{meal}}
+    </label>
+  </checkbox-group>
+  <view class="test-result">
+    <text>当前选择的餐次: {{testSelectedMealTypes.join(', ') || '无'}}</text>
+  </view>
+</view>

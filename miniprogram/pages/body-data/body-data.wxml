@@ -1,0 +1,148 @@
+<base-header title="我的身体数据" showBack="true"></base-header>
+<view class="container">
+  
+  <!-- 展示模式：仅在非编辑状态显示 -->
+  <view wx:if="{{!isEditing}}">
+    <view class="card">
+      
+
+      <view class="form-item">
+        <text class="label">身高(cm)</text>
+        <text class="value">{{bodyData.height}}</text>
+      </view>
+      <view class="form-item">
+        <text class="label">体重(kg)</text>
+        <text class="value">{{bodyData.weight}}</text>
+      </view>
+      <view class="form-item">
+        <text class="label">年龄</text>
+        <text class="value">{{bodyData.age}}</text>
+      </view>
+      <view class="form-item">
+        <text class="label">性别</text>
+        <text class="value">{{bodyData.gender === 'male' ? '男' : '女'}}</text>
+      </view>
+      <view class="form-item">
+        <text class="label">BMI指数</text>
+        <text class="value">{{bodyData.bmi}}</text>
+      </view>
+      <view class="form-item">
+        <text class="label">常见疾病</text>
+        <view class="disease-list">
+          <view class="disease-item">
+            <text>糖尿病</text>
+            <text class="value">{{bodyData.diseases.diabetes === 'yes' ? '是' : '否'}}</text>
+          </view>
+          <view class="disease-item">
+            <text>高血压</text>
+            <text class="value">{{bodyData.diseases.hypertension === 'yes' ? '是' : '否'}}</text>
+          </view>
+          <view class="disease-item">
+            <text>高血脂</text>
+            <text class="value">{{bodyData.diseases.hyperlipidemia === 'yes' ? '是' : '否'}}</text>
+          </view>
+          <view class="disease-item">
+            <text>痛风</text>
+            <text class="value">{{bodyData.diseases.gout === 'yes' ? '是' : ' 否'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 健康提示 -->
+      <view class="health-tip">
+        <text>{{healthTip}}</text>
+      </view>
+
+      <!-- 编辑按钮 -->
+      <view class="button-group">
+        <button class="edit-button" bindtap="onEdit">编辑数据</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑模式：仅在编辑状态显示 -->
+  <form bindsubmit="onUpdate" wx:if="{{isEditing}}">
+    <view class="card">  <!-- 【新增】卡片容器 -->
+      <view class="title">编辑身体数据</view>
+
+      <view class="form-item">
+        <text class="label">身高(cm)</text>
+        <input type="number" name="height" value="{{bodyData.height}}" placeholder="请输入身高" />
+      </view>
+      <view class="form-item">
+        <text class="label">体重(kg)</text>
+        <input type="number" name="weight" value="{{bodyData.weight}}" placeholder="请输入体重" />
+      </view>
+      <view class="form-item">
+        <text class="label">年龄</text>
+        <input type="number" name="age" value="{{bodyData.age}}" placeholder="请输入年龄" />
+      </view>
+      <view class="form-item">
+        <text class="label">性别</text>
+        <radio-group name="gender" class="radio-group" value="{{bodyData.gender}}">
+          <label class="radio">
+            <radio value="male" />男
+          </label>
+          <label class="radio">
+            <radio value="female" />女
+          </label>
+        </radio-group>
+      </view>
+      <view class="form-item">
+        <text class="label">常见疾病</text>
+        <view class="disease-list">
+          <view class="disease-item">
+            <text>糖尿病</text>
+            <radio-group name="diabetes" class="radio-group" value="{{bodyData.diseases.diabetes}}">
+              <label class="radio">
+                <radio value="yes" />是
+              </label>
+              <label class="radio">
+                <radio value="no" />否
+              </label>
+            </radio-group>
+          </view>
+          <view class="disease-item">
+            <text>高血压</text>
+            <radio-group name="hypertension" class="radio-group" value="{{bodyData.diseases.hypertension}}">
+              <label class="radio">
+                <radio value="yes" />是
+              </label>
+              <label class="radio">
+                <radio value="no" />否
+              </label>
+            </radio-group>
+          </view>
+          <view class="disease-item">
+            <text>高血脂</text>
+            <radio-group name="hyperlipidemia" class="radio-group" value="{{bodyData.diseases.hyperlipidemia}}">
+              <label class="radio">
+                <radio value="yes" />是
+              </label>
+              <label class="radio">
+                <radio value="no" />否
+              </label>
+            </radio-group>
+          </view>
+          <view class="disease-item">
+            <text>痛风</text>
+            <radio-group name="gout" class="radio-group" value="{{bodyData.diseases.gout}}">
+              <label class="radio">
+                <radio value="yes" />是
+              </label>
+              <label class="radio">
+                <radio value="no" />否
+              </label>
+            </radio-group>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 编辑模式按钮组 -->
+    <view class="button-group">
+      <button type="button" class="cancel-button" bindtap="onCancel">取消</button>
+      <button form-type="submit" class="save-button">保存修改</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,199 @@
+/* pages/suggest.wxss */
+/* pages/suggest/suggest.wxss */
+page {
+  background-color: #f7f7f7; /* 页面背景色 */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 使页面铺满高度，让 content-container 能 flex: 1 占据剩余空间 */
+}
+
+/* ---------------------------------------------------------------------- */
+/* 新增：分类选择区域样式 (根据图片UI) */
+.category-selection-area {
+  padding: 30rpx; /* 整体内边距 */
+  background-color: #fff;
+  margin-bottom: 20rpx; /* 与下方内容区域的间距 */
+  border-radius: 20rpx; /* 整体圆角 */
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05); /* 轻微阴影 */
+  /* 确保整体内容与顶部导航栏有足够间距 */
+  padding-top: 50rpx; /* 增加顶部内边距，将内容整体下移 */
+}
+
+.slogan-text {
+  display: block;
+  font-size: 38rpx; /* 稍微增大字体 */
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 50rpx; /* 增加与下方分类部分的间距 */
+  /* margin-top 不需要了，因为已经增加了.category-selection-area的padding-top */
+}
+
+.category-section {
+  margin-bottom: 60rpx; /* 增加每个分类大区之间的间距 */
+}
+
+.category-section:last-child {
+  margin-bottom: 0; /* 最后一个大区下方无间距 */
+}
+
+.section-title-new { /* 新的分类标题样式，与旧的 section-subtitle 区分 */
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 30rpx; /* 标题与下方分类按钮的间距 */
+  padding-left: 10rpx; /* 与左侧对齐 */
+  border-left: 8rpx solid #1890ff; /* 左侧蓝色装饰线 */
+  line-height: 1; /* 确保高度正常 */
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap; /* 允许按钮换行 */
+  gap: 25rpx; /* 增加按钮之间的间距，让它们看起来更宽敞 */
+  justify-content: flex-start; /* 左对齐 */
+}
+
+.grid-item {
+  flex-shrink: 0; /* 防止被压缩 */
+  /* 计算宽度：(100% - 2 * gap) / 3，这里2 * 25rpx = 50rpx */
+  width: calc((100% - 50rpx) / 3); /* 每行3个，减去2个gap的宽度，让每个框更宽 */
+
+  padding: 30rpx 0; /* 增加垂直内边距，让框更高 */
+  border: 2rpx solid #e0e0e0;
+  border-radius: 20rpx; /* 圆角稍微增大 */
+  text-align: center;
+  font-size: 32rpx; /* 字体稍微增大 */
+  color: #333;
+  background-color: #f8f8f8;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box; /* 包含padding和border在宽度内 */
+}
+
+.grid-item.active {
+  background-color: #e6f7ff; /* 选中背景色 */
+  color: #1890ff; /* 选中文字颜色 */
+  border-color: #1890ff; /* 选中边框颜色 */
+  font-weight: bold;
+  transform: scale(1.02); /* 选中时稍微放大 */
+}
+
+.grid-item.placeholder {
+  visibility: hidden; /* 隐藏占位符，但保留其布局空间 */
+  border: none; /* 占位符无边框 */
+  background-color: transparent; /* 占位符无背景色 */
+}
+
+/* ---------------------------------------------------------------------- */
+/* 以下是原有的内容区域和建议列表样式，保持不变或根据需要调整 */
+
+/* 内容区域样式 */
+.content-container {
+  flex: 1; /* 占据剩余垂直空间 */
+  padding: 20rpx;
+  overflow-y: hidden; /* 隐藏容器自身的滚动条，让内部的 scroll-view 控制 */
+  box-sizing: border-box;
+}
+
+/* 加载、错误、空状态的通用样式 */
+.loading-state, .error-state, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  color: #999;
+  font-size: 30rpx;
+  min-height: 400rpx; /* 确保在内容为空时也有一定高度 */
+}
+
+.loading-gif {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.error-retry {
+  color: #1890ff;
+  margin-top: 20rpx;
+  text-decoration: underline;
+}
+
+/* 建议列表的样式 */
+.suggestion-list {
+  height: 100%; /* 确保 scroll-y 生效，因为父容器是 flex: 1 */
+}
+
+.suggestion-card {
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden; /* 确保图片圆角 */
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08); /* 卡片阴影 */
+}
+
+.suggestion-img {
+  width: 100%;
+  height: 360rpx; /* 图片高度 */
+  display: block;
+}
+
+.suggestion-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #333;
+  padding: 30rpx 30rpx 20rpx;
+  line-height: 1.4;
+}
+
+.suggestion-section {
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-subtitle { /* 用于建议卡片内的副标题 */
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 15rpx;
+  display: block;
+}
+
+.suggestion-paragraph {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 10rpx;
+  text-align: justify; /* 段落两端对齐 */
+}
+
+.food-list {
+  display: flex;
+  flex-wrap: wrap; /* 允许标签换行 */
+  gap: 15rpx; /* 食物标签之间的间距 */
+}
+
+.food-item {
+  background-color: #e8f5e9; /* 适合食物背景色 (浅绿) */
+  color: #388e3c; /* 适合食物文字色 (深绿) */
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  display: inline-block;
+  white-space: nowrap; /* 防止标签文字换行 */
+  transition: background-color 0.2s;
+}
+
+.food-item.avoid {
+  background-color: #ffebee; /* 避免食物背景色 (浅红) */
+  color: #d32f2f; /* 避免食物文字色 (深红) */
+}
+
+.food-item:active {
+  opacity: 0.7; /* 点击时透明度变化 */
+}
+
+/* 底部安全区域，兼容刘海屏等 */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

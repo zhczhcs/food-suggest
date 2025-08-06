@@ -1,0 +1,27 @@
+{
+  "cloud": true,
+  "pages": [
+   
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/search/search",
+    "pages/body-data/body-data",
+    "pages/init-body-data/init-body-data",
+    "pages/search/foodDt/foodDt",
+    "pages/search/compare/compare",
+    "pages/suggest/suggest",
+    "pages/recipe/recipe",
+    "pages/record/record"
+    
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationStyle": "custom"
+  },
+  
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "lazyCodeLoading": "requiredComponents"
+}

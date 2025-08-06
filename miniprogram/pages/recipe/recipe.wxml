@@ -1,0 +1,101 @@
+<!-- pages/recipe/recipe.wxml -->
+<base-header title="{{pageTitle}}" showBack="true"></base-header>
+
+<view class="container">
+  <!-- 标题 -->
+  <view class="detail-title-section">
+    <text class="detail-title">{{categoryName}}菜谱</text>
+  </view>
+
+  <!-- 菜谱列表 -->
+  <view class="recipe-list">
+    <block wx:if="{{recipes.length > 0}}">
+      <view class="recipe-card" wx:for="{{recipes}}" wx:key="_id">
+        <image class="recipe-image" src="{{item.imagePath}}" mode="aspectFill"></image>
+        
+        <view class="recipe-content">
+          <text class="recipe-name">{{item.name}}</text>
+          <text wx:if="{{item.description}}" class="recipe-description">{{item.description}}</text>
+          
+          <!-- 烹饪时间、难度信息 -->
+          <view class="info-row">
+            <text wx:if="{{item.cookTime}}" class="info-item">烹饪时间: {{item.cookTime}}</text>
+            <text wx:if="{{item.difficulty}}" class="info-item">难度: {{item.difficulty}}</text>
+          </view>
+
+          <!-- 标签列表和新增按钮 -->
+          <view class="tags-and-add-section">
+            <view wx:if="{{item.tags && item.tags.length > 0}}" class="tags-section">
+              <text class="section-subtitle">标签:</text>
+              <view class="tag-list">
+                <view wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="tag-item">{{tag}}</view>
+              </view>
+            </view>
+            <!-- 添加到今日饮食记录按钮 -->
+            <button 
+              class="add-to-diet-btn" 
+              bindtap="onAddToDietClick" 
+              data-recipe="{{item}}"
+              hover-class="add-to-diet-btn-hover"
+            >
+              添加到今日饮食记录
+            </button>
+          </view>
+
+          <!-- 食材列表 -->
+          <view wx:if="{{item.ingredients && item.ingredients.length > 0}}" class="ingredients-section">
+            <text class="section-subtitle">所需食材:</text>
+            <view class="ingredients-list">
+              <view wx:for="{{item.ingredients}}" wx:for-item="ingredient" wx:key="name" class="ingredient-item">
+                <text 
+                  class="ingredient-name {{ingredient.isFoodDtAvailable ? 'ingredient-name-available' : 'ingredient-name-unavailable'}}" 
+                  bindtap="onIngredientClick" 
+                  data-name="{{ingredient.name}}"
+                >{{ingredient.name}}</text>
+                <text class="quantity">{{ingredient.quantity}}</text>
+              </view>
+            </view>
+          </view>
+          
+          <!-- 做法步骤 -->
+          <view wx:if="{{item.steps && item.steps.length > 0}}" class="steps-section">
+            <text class="section-subtitle">做法步骤:</text>
+            <view class="steps-list">
+              <view wx:for="{{item.steps}}" wx:for-item="step" wx:for-index="idx" wx:key="idx" class="step-item">
+                <text class="step-number">{{idx + 1}}.</text>
+                <text class="step-text">{{step}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="no-recipes-tip">
+        <text>当前分类暂无菜谱</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 添加到饮食记录弹窗 (Modal) -->
+  <view class="add-diet-modal-overlay" wx:if="{{showAddDietModal}}" bindtap="onCancelAddToDiet">
+    <view class="add-diet-modal-content" catchtap="stopBubble"> 
+      <text class="modal-title">添加到今日饮食记录</text>
+      <text class="modal-recipe-name">{{currentRecipeToAdd.name}}</text>
+
+      <!-- <<<<<<<<<< 主要改动：替换复选框为按钮 -->
+      <view class="modal-meal-buttons-container">
+        <button class="modal-btn meal-type-btn" bindtap="onAddMealType" data-mealtype="早">添加到今日早餐记录</button>
+        <button class="modal-btn meal-type-btn" bindtap="onAddMealType" data-mealtype="中">添加到今日中餐记录</button>
+        <button class="modal-btn meal-type-btn" bindtap="onAddMealType" data-mealtype="晚">添加到今日晚餐记录</button>
+      </view>
+
+      <view class="modal-buttons">
+        <button class="modal-btn cancel-btn" bindtap="onCancelAddToDiet">取消</button>
+      </view>
+      <!-- 弹窗内容结束 -->
+    </view>
+  </view>
+  <!-- 弹窗结束 -->
+
+</view>

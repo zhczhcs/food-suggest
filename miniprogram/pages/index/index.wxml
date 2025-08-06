@@ -1,0 +1,41 @@
+<!-- pages/index/index.wxml -->
+<base-header title="食愈小站"></base-header>
+
+<!-- 功能入口 -->
+<view class="function-grid">
+  <navigator url="/pages/suggest/suggest" class="grid-item">
+    <image src="/images/icon-suggest.png" mode="widthFix"></image>
+    <text>饮食建议</text>
+  </navigator>
+  <navigator url="/pages/search/search" class="grid-item">
+    <image src="/images/icon-search.png" mode="widthFix"></image>
+    <text>营养查询</text>
+  </navigator>
+  <navigator url="/pages/record/record" class="grid-item">
+    <image src="/images/icon-record.png" mode="widthFix"></image>
+    <text>饮食记录</text>
+  </navigator>
+  <!-- <navigator url="/pages/recipe/recipe" class="grid-item">
+    <image src="/images/icon-record.png" mode="widthFix"></image>
+    <text>daoru</text>
+  </navigator> -->
+  
+  <navigator url="/pages/body-data/body-data" class="grid-item">
+    <image src="/images/icon-knowledge.png" mode="widthFix"></image>
+    <text>我的身体数据</text>
+  </navigator>
+</view>
+
+<!-- 今日推荐（复用NutritionCard） -->
+<view class="today-suggest">
+  <text class="section-title">今日推荐</text>
+  <nutrition-card 
+    title="{{todaySuggest.title}}" 
+    tag="个性化推荐" 
+    nutrients="{{todaySuggest.nutrients}}" 
+    desc="{{todaySuggest.desc}}" 
+    actions="{{[{text: '查看详情', callback: 'viewDetail'}]}}"
+    type="suggest"
+    bind:action="onSuggestAction"
+  ></nutrition-card>
+</view>

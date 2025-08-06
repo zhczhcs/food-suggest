@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "base-header": "/components/BaseHeader"
+  }
+}

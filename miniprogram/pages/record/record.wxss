@@ -1,0 +1,385 @@
+/* pages/record/record.wxss */
+
+.container {
+  padding: 20rpx;
+  /* 假设 base-header 的高度大约是 120rpx (例如 状态栏高度 + 导航栏高度) */
+  /* 您可能需要根据实际情况调整这个值 */
+  padding-top: calc(120rpx + 20rpx + env(safe-area-inset-top)); 
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  box-sizing: border-box;
+}
+
+/* 顶部功能按钮容器 */
+.top-buttons-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20rpx; 
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  /* 确保按钮在顶部，如果被base-header遮挡，可能需要一个更大的margin-top */
+  /* margin-top: 130rpx;  示例值，请根据base-header实际高度调整 */
+}
+
+/* 新增：用于picker组件的样式，使其看起来像按钮 */
+.picker-wrapper {
+  /* 继承 top-btn 的通用样式 */
+  flex: 1; 
+  margin: 0 10rpx; 
+  padding: 15rpx 0;
+  font-size: 30rpx;
+  border-radius: 50rpx; 
+  height: auto;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #007bff; /* 保持与原“选择日期查询”按钮颜色一致 */
+  box-sizing: border-box; /* 确保 padding 不会撑开容器 */
+  /* 移除 button 默认边框，因为现在是 view */
+  border: none; 
+}
+
+/* 确保 picker 内部文本的样式 */
+.picker-text {
+  color: #fff; /* 确保文字颜色正确 */
+  font-size: 30rpx; /* 确保字体大小正确 */
+  line-height: 1; /* 确保行高正确 */
+  display: block; /* 确保文本占据空间 */
+  width: 100%; /* 让文本填充 picker 区域 */
+  text-align: center; /* 文本居中 */
+}
+
+.top-btn {
+  flex: 1; 
+  margin: 0 10rpx; 
+  padding: 15rpx 0;
+  font-size: 30rpx;
+  border-radius: 50rpx; 
+  height: auto;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.top-btn::after {
+  border: none; 
+}
+
+/* date-query-btn 样式现在由 .picker-wrapper 接管 */
+/* .date-query-btn {
+  background-color: #007bff; 
+} */
+
+.stats-btn {
+  background-color: #28a745; 
+}
+
+/* 修改：查询日期信息显示，使其可点击 */
+.query-date-info {
+  text-align: center;
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 15rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  /* 添加点击反馈效果 */
+  transition: background-color 0.2s ease;
+}
+
+.query-date-info:active {
+  background-color: #f0f0f0; /* 点击时背景变浅 */
+}
+
+.query-date-info .clear-filter-text {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+
+/* 提示信息 */
+.loading-tip, .empty-tip {
+  text-align: center;
+  padding: 50rpx 0;
+  color: #999;
+  font-size: 30rpx;
+}
+
+.empty-tip text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+/* 饮食记录列表 */
+.diet-record-list {
+  padding-bottom: env(safe-area-inset-bottom); 
+  display: flex; 
+  flex-direction: column; 
+  gap: 30rpx; 
+}
+
+.record-card {
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f8ff; 
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.record-card:active {
+  transform: translateY(2rpx); 
+}
+
+.record-info-header {
+  width: 100%;
+  background-color: #e9f5ff; 
+  padding: 10rpx 15rpx;
+  box-sizing: border-box;
+  text-align: center;
+  border-bottom: 1rpx solid #d3e9ff;
+}
+
+.record-datetime {
+  font-size: 26rpx; 
+  color: #555; 
+  font-weight: bold;
+}
+
+.record-image {
+  width: 100%;
+  height: 280rpx; 
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.record-name {
+  font-size: 32rpx; 
+  font-weight: bold;
+  color: #333;
+  padding: 20rpx 15rpx; 
+  text-align: center;
+  width: 100%;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+/* 操作按钮容器 */
+.record-actions {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  padding: 0 0 20rpx; 
+}
+
+.action-btn {
+  width: 60%; 
+  font-size: 28rpx;
+  padding: 10rpx 0;
+  border-radius: 8rpx;
+  height: auto;
+  line-height: 1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.delete-btn {
+  background-color: #dc3545; 
+}
+
+
+/* 查看食谱模态框样式 */
+.recipe-detail-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.recipe-detail-modal-content {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  width: 90%; 
+  max-width: 700rpx; 
+  height: 80vh; /* 模态框总高度 */
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* 确保是列布局，以便子元素垂直排列 */
+  position: relative; 
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20rpx;
+  flex-shrink: 0; /* 防止标题被压缩 */
+}
+
+.modal-scroll-area {
+  flex: 1; /* 关键：让 scroll-view 占据 modal-content 内部的剩余所有空间 */
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 0; /* 确保在 flex 容器中 scroll-view 能够正确计算高度并滚动 */
+}
+
+.modal-recipe-image {
+  width: 100%;
+  height: 300rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+  flex-shrink: 0; /* 确保图片不会被压缩，且不参与滚动区域的 flex 伸缩 */
+}
+
+.modal-recipe-content {
+  padding: 0 10rpx 20rpx; /* 内部内容略微缩进，底部留白 */
+}
+
+.modal-recipe-name {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block; 
+}
+
+.modal-recipe-description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.modal-section-subtitle {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.modal-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.modal-info-item {
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.modal-tags-section {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.modal-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal-tag-item {
+  background-color: #e0f7fa;
+  color: #00796b;
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  white-space: nowrap;
+}
+
+.modal-ingredients-list, .modal-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.modal-ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #444;
+  padding: 5rpx 0;
+  border-bottom: 1rpx dashed #eee;
+}
+
+.modal-ingredient-item:last-child {
+  border-bottom: none;
+}
+
+.modal-ingredient-name {
+  color: #333; 
+  text-decoration: none;
+}
+
+.modal-quantity {
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.modal-step-item {
+  display: flex;
+  align-items: flex-start;
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.6;
+}
+
+.modal-step-number {
+  font-weight: bold;
+  margin-right: 15rpx;
+  color: #007bff;
+  flex-shrink: 0;
+}
+
+.modal-step-text {
+  flex: 1;
+}
+
+.modal-close-btn {
+  width: 80%;
+  padding: 15rpx 0;
+  font-size: 32rpx;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 10rpx;
+  margin-top: 30rpx; 
+  height: auto;
+  line-height: 1;
+  flex-shrink: 0; 
+}
+
+.modal-close-btn::after {
+  border: none;
+}

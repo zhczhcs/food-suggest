@@ -1,0 +1,8 @@
+<view class="header">
+  <!-- 返回按钮 -->
+  <view wx:if="{{showBack}}" class="back-button" bindtap="onBack">
+    <text class="back-icon">←</text> <!-- 可以替换为图片图标 -->
+  </view>
+  <!-- 标题 -->
+  <text class="title">{{title}}</text>
+</view>

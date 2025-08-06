@@ -1,0 +1,91 @@
+<!-- pages/suggest/suggest.wxml -->
+<base-header title="饮食建议" showBack="true"></base-header>
+
+<!-- 新的分类选择区域 -->
+<view class="category-selection-area">
+  <text class="slogan-text">您需要做哪些饮食调整?</text>
+
+  <!-- 健身减肥 -->
+  <view class="category-section">
+    <text class="section-title-new">健身减肥</text>
+    <view class="category-grid">
+      <view
+        class="grid-item {{activeCategory === 'fat-loss' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="fat-loss"
+        data-db-name="减脂菜谱"  
+      >减脂</view>
+      <view
+        class="grid-item {{activeCategory === 'muscle-gain' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="muscle-gain"
+        data-db-name="增肌菜谱"  
+      >增肌</view>
+      <!-- <<<<<<<<<< 添加素食分类 -->
+      <view
+        class="grid-item {{activeCategory === 'vegetarian' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="vegetarian"
+        data-db-name="素食菜谱"  
+      >素食</view>
+    </view>
+  </view>
+
+  <!-- 食疗调理 -->
+  <view class="category-section">
+    <text class="section-title-new">食疗调理</text>
+    <view class="category-grid">
+      <view
+        class="grid-item {{activeCategory === 'kidney' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="kidney"
+        data-db-name="补肾菜谱"  
+      >补肾</view>
+      <view
+        class="grid-item {{activeCategory === 'spleen' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="spleen"
+        data-db-name="补脾胃菜谱"  
+      >补脾胃</view>
+      <view
+        class="grid-item {{activeCategory === 'wetness' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="wetness"
+        data-db-name="祛湿菜谱" 
+      >祛湿</view>
+      <!-- <<<<<<<<<< 添加安神分类 -->
+      <view
+        class="grid-item {{activeCategory === 'calming' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="calming"
+        data-db-name="安神菜谱"  
+      >安神</view>
+    </view>
+  </view>
+
+  <!-- 疾病调理 -->
+  <view class="category-section">
+    <text class="section-title-new">疾病调理</text>
+    <view class="category-grid">
+      <view
+        class="grid-item {{activeCategory === 'diabetes' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="diabetes"
+        data-db-name="糖尿病菜谱"  
+      >糖尿病</view>
+      <view
+        class="grid-item {{activeCategory === 'hypertension' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="hypertension"
+        data-db-name="高血压菜谱"  
+      >高血压</view>
+      <!-- <<<<<<<<<< 添加骨质疏松分类 -->
+      <view
+        class="grid-item {{activeCategory === 'osteoporosis' ? 'active' : ''}}"
+        bindtap="onCategoryClick"
+        data-id="osteoporosis"
+        data-db-name="骨质疏松菜谱"  
+      >骨质疏松</view>
+    </view>
+  </view>
+</view>

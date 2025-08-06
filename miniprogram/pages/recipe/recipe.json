@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "base-header": "/components/BaseHeader"
+  },
+  "navigationStyle": "custom"
+  
+}

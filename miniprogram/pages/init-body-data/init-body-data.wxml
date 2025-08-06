@@ -1,0 +1,58 @@
+<view class="container">
+  <text class="title">初始化身体数据</text>
+  <form bindsubmit="onSubmit">
+    <view class="form-item">
+      <text>身高(cm)：</text>
+      <input type="number" name="height" placeholder="请输入身高" required />
+    </view>
+    <view class="form-item">
+      <text>体重(kg)：</text>
+      <input type="number" name="weight" placeholder="请输入体重" required />
+    </view>
+    <view class="form-item">
+      <text>年龄：</text>
+      <input type="number" name="age" placeholder="请输入年龄" required />
+    </view>
+    <view class="form-item">
+      <text>性别：</text>
+      <radio-group name="gender">
+        <radio value="male">男</radio>
+        <radio value="female">女</radio>
+      </radio-group>
+    </view>
+    <view class="form-item">
+  <text>常见疾病：</text>
+  <view class="disease-group">
+    <view class="disease-item">
+      <text>糖尿病：</text>
+      <radio-group name="diabetes">
+        <radio value="yes">是</radio>
+        <radio value="no" checked>否</radio>
+      </radio-group>
+    </view>
+    <view class="disease-item">
+      <text>高血压：</text>
+      <radio-group name="hypertension">
+        <radio value="yes">是</radio>
+        <radio value="no" checked>否</radio>
+      </radio-group>
+    </view>
+    <view class="disease-item">
+      <text>高血脂：</text>
+      <radio-group name="hyperlipidemia">
+        <radio value="yes">是</radio>
+        <radio value="no" checked>否</radio>
+      </radio-group>
+    </view>
+    <view class="disease-item">
+      <text>痛风：</text>
+      <radio-group name="gout">
+        <radio value="yes">是</radio>
+        <radio value="no" checked>否</radio>
+      </radio-group>
+    </view>
+  </view>
+</view>
+    <button form-type="submit" class="submit-btn">保存并进入首页</button>
+  </form>
+</view>

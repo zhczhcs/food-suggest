@@ -1,0 +1,310 @@
+/* pages/recipe/recipe.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f7f7f7; 
+  min-height: 100vh; 
+}
+
+.detail-title-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+.detail-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx; 
+}
+
+.recipe-card {
+  width: 100%;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.1); 
+  background-color: #fff;
+  display: flex; 
+  flex-direction: column; 
+}
+
+.recipe-image {
+  width: 100%;
+  height: 360rpx; 
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+
+.recipe-content {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx; 
+}
+
+.recipe-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.recipe-description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.section-subtitle {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 15rpx;
+  display: block; 
+}
+
+.ingredients-list, .steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx; 
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between; 
+  font-size: 28rpx;
+  color: #444;
+  padding: 5rpx 0;
+  border-bottom: 1rpx dashed #eee; 
+}
+
+.ingredient-item:last-child {
+  border-bottom: none; 
+}
+
+.quantity {
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start; 
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.6;
+}
+
+.step-number {
+  font-weight: bold;
+  margin-right: 15rpx;
+  color: #007bff; 
+  flex-shrink: 0; 
+}
+
+.step-text {
+  flex: 1; 
+}
+
+.no-recipes-tip {
+  text-align: center;
+  padding: 100rpx 0; 
+  color: #999;
+  font-size: 32rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.05);
+  margin-top: 40rpx; 
+}
+
+.info-row {
+  display: flex;
+  flex-wrap: wrap; 
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.info-item {
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.tags-section {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.tag-item {
+  background-color: #e0f7fa; 
+  color: #00796b; 
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  white-space: nowrap; 
+}
+
+.section-subtitle {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+  display: block; 
+}
+.ingredient-name {
+  margin-right: 10rpx;
+  font-size: 28rpx; 
+  text-decoration: underline; 
+  cursor: pointer; 
+}
+
+.ingredient-name-available {
+  color: #007bff; 
+}
+
+.ingredient-name-unavailable {
+  color: #333; 
+}
+
+.tags-and-add-section {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tags-section {
+  width: 100%; 
+  margin-bottom: 10px; 
+}
+
+.add-to-diet-btn {
+  width: auto; 
+  min-width: 200rpx; 
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background-color: #28a745; 
+  border-radius: 50rpx; 
+  line-height: 1; 
+  height: auto; 
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0; 
+  box-sizing: border-box; 
+}
+
+.add-to-diet-btn-hover {
+  background-color: #218838; 
+  opacity: 0.9;
+}
+
+/* 弹窗样式 */
+.add-diet-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; 
+}
+
+.add-diet-modal-content {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  width: 80%; 
+  max-width: 600rpx; 
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.modal-recipe-name {
+  font-size: 32rpx;
+  color: #555;
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* <<<<<<<<<< 新增：按钮容器样式 */
+.modal-meal-buttons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* 按钮垂直排列 */
+  gap: 20rpx; /* 按钮之间间距 */
+  margin-bottom: 30rpx;
+}
+
+/* <<<<<<<<<< 修改：餐次按钮样式 */
+.meal-type-btn {
+  width: 100%; /* 按钮占据整个宽度 */
+  padding: 20rpx 0; /* 增加上下内边距 */
+  font-size: 32rpx;
+  background-color: #4CAF50; /* 绿色 */
+  color: #fff;
+  border-radius: 10rpx;
+  line-height: 1;
+  height: auto;
+  margin: 0; /* 移除默认外边距 */
+}
+
+.meal-type-btn::after {
+  border: none;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center; /* 取消按钮居中 */
+  width: 100%;
+  margin-top: 20rpx;
+}
+
+.modal-btn { /* 通用按钮样式 */
+  padding: 15rpx 0;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 1;
+  height: auto;
+  margin: 0; 
+  box-sizing: border-box;
+}
+
+.cancel-btn {
+  width: 80%; /* 取消按钮宽度 */
+  background-color: #6c757d; /* 灰色 */
+  color: #fff;
+}
+
+.cancel-btn::after {
+  border: none;
+}
