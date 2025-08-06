@@ -1,0 +1,92 @@
+<!-- pages/search/compare/compare.wxml -->
+<base-header title="食物营养对比" showBack="{{true}}"></base-header>
+
+<scroll-view scroll-y class="compare-container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-tip">
+    <text>正在加载对比食物的详细营养信息...</text>
+  </view>
+
+  <!-- 加载错误提示 -->
+  <view wx:if="{{!loading && loadError}}" class="empty-tip">
+    <text>加载食物详情失败，请检查网络或稍后再试。</text>
+  </view>
+
+  <!-- 对比内容 -->
+  <view wx:if="{{!loading && !loadError && food1 && food2}}" class="compare-content">
+    <!-- 食物名称和图片 -->
+    <view class="food-header">
+      <view class="food-column">
+        <image 
+          wx:if="{{food1.img}}" 
+          src="{{food1.img}}" 
+          mode="aspectFill" 
+          class="food-image"
+          binderror="onFoodImageError"
+          data-foodname="{{food1.name}}"
+          data-cloudfileid="{{food1.cloudFileId}}"
+          data-foodindex="0"
+        ></image>
+        <image 
+          wx:else 
+          src="/images/default_food.png" 
+          mode="aspectFill" 
+          class="food-image"
+        ></image>
+        <text class="food-name">{{food1.name}}</text>
+      </view>
+      <view class="food-column">
+        <image 
+          wx:if="{{food2.img}}" 
+          src="{{food2.img}}" 
+          mode="aspectFill" 
+          class="food-image"
+          binderror="onFoodImageError"
+          data-foodname="{{food2.name}}"
+          data-cloudfileid="{{food2.cloudFileId}}"
+          data-foodindex="1"
+        ></image>
+        <image 
+          wx:else 
+          src="/images/default_food.png" 
+          mode="aspectFill" 
+          class="food-image"
+        ></image>
+        <text class="food-name">{{food2.name}}</text>
+      </view>
+    </view>
+
+    <!-- 营养成分列表 -->
+    <view class="card">
+      <text class="section-title">主要营养成分</text>
+      <view wx:for="{{mainNutritionComparison}}" wx:for-item="item" wx:key="key" class="nutrient-row">
+        <text class="nutrient-name">{{item.key}}</text>
+        <text class="nutrient-value {{item.food1Higher ? 'highlight-yellow' : ''}}">{{item.food1Value}}</text>
+        <text class="nutrient-value {{item.food2Higher ? 'highlight-yellow' : ''}}">{{item.food2Value}}</text>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{vitaminComparison.length > 0}}">
+      <text class="section-title">维生素</text>
+      <view wx:for="{{vitaminComparison}}" wx:for-item="item" wx:key="key" class="nutrient-row">
+        <text class="nutrient-name">{{item.key}}</text>
+        <text class="nutrient-value {{item.food1Higher ? 'highlight-yellow' : ''}}">{{item.food1Value}}</text>
+        <text class="nutrient-value {{item.food2Higher ? 'highlight-yellow' : ''}}">{{item.food2Value}}</text>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{mineralComparison.length > 0}}">
+      <text class="section-title">矿物质</text>
+      <view wx:for="{{mineralComparison}}" wx:for-item="item" wx:key="key" class="nutrient-row">
+        <text class="nutrient-name">{{item.key}}</text>
+        <text class="nutrient-value {{item.food1Higher ? 'highlight-yellow' : ''}}">{{item.food1Value}}</text>
+        <text class="nutrient-value {{item.food2Higher ? 'highlight-yellow' : ''}}">{{item.food2Value}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{mainNutritionComparison.length === 0 && vitaminComparison.length === 0 && mineralComparison.length === 0}}" class="empty-tip">
+        <text>未找到可对比的营养成分数据。</text>
+    </view>
+
+  </view>
+</scroll-view>
